@@ -14,35 +14,40 @@
 ## 소스코드
 ```java
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.IOException;
  
 public class Main {
 	private static boolean[][] areFriends;
-	private static int n;
+	private static int n, m;
+	static boolean[] taken;
 	public static void main(String args[]) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
 		
-		boolean[] taken;
 		int testCase = Integer.parseInt(br.readLine());
-		String result = "";
+		
 		for(int j=0; j < testCase; j++) {
 			String[] line = br.readLine().split(" ");
 			n = Integer.parseInt(line[0]);
-			int friendCount = Integer.parseInt(line[1]);
-			areFriends = new boolean[10][10];
-			for(int i=0; i< friendCount; i++) {
-				line = br.readLine().split(" ");
-				int a = Integer.parseInt(line[0]);
-				int b = Integer.parseInt(line[1]);
+			m = Integer.parseInt(line[1]);
+			
+			areFriends = new boolean[n][n];
+			taken = new boolean[n];
+			
+			st = new StringTokenizer(br.readLine());
+			for(int i=0; i< m; i++) {
+				int a = Integer.parseInt(st.nextToken());
+				int b = Integer.parseInt(st.nextToken());
 				
 				areFriends[a][b] = areFriends[b][a] = true;
 			}
-			boolean[] data = new boolean[10];
-			result += (j +1 == testCase) ? countPairings(data) : countPairings(data) + "\n";
+			taken = new boolean[n];
+			sb.append(countPairings(taken) + "\n");
 		}
-		System.out.println(result);
+		System.out.println(sb);
 	}
 	public static int countPairings(boolean[] taken) {
 		int firstFree = -1;
@@ -66,4 +71,5 @@ public class Main {
 		return ret;
 	}
 }
+
 ```
